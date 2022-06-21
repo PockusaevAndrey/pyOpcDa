@@ -1,5 +1,6 @@
-from Interfaces.IOPCItems import IOPCItems
 from typing import Tuple
+
+from Interfaces.IOPCItems import IOPCItems
 from Structs.OPCItem import OPCItem
 
 
@@ -200,3 +201,9 @@ class OPCItems(IOPCItems):
         :rtype:                     Tuple[int]
         """
         return self._object.SetDataType(Count, ServerHandles, RequestedDataTypes)
+
+    def __iter__(self):
+        return self._object.__iter__()
+
+    def __next__(self):
+        return self._object.__next__()

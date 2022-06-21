@@ -1,4 +1,9 @@
-class IDataChangeEvent:
+from abc import ABCMeta, abstractmethod
+
+
+class IDataChangeEvent(metaclass=ABCMeta):
+
+    @abstractmethod
     def OnDataChange(self, TransactionID, NumItems, ClientHandles, ItemValues, Qualities, TimeStamps):
         """
         The DataChange event is fired when a value or the quality of a value for an item within the group
@@ -21,7 +26,8 @@ class IDataChangeEvent:
         pass
 
 
-class IAsyncReadEvent:
+class IAsyncReadEvent(metaclass=ABCMeta):
+    @abstractmethod
     def OnAsyncReadComplete(self, TransactionID, NumItems, ClientHandles, ItemValues, Qualities, TimeStamps,
                             Errors):
         """
@@ -42,7 +48,8 @@ class IAsyncReadEvent:
         pass
 
 
-class IAsyncWriteEvent:
+class IAsyncWriteEvent(metaclass=ABCMeta):
+    @abstractmethod
     def OnAsyncWriteComplete(self, TransactionID, NumItems, ClientHandles, Errors):
         """
         This event fires when an AsyncWrite is completed
@@ -54,7 +61,8 @@ class IAsyncWriteEvent:
         pass
 
 
-class IAsyncCancelEvent:
+class IAsyncCancelEvent(metaclass=ABCMeta):
+    @abstractmethod
     def OnAsyncCancelComplete(self, TransactionID):
         """
 
@@ -64,4 +72,4 @@ class IAsyncCancelEvent:
         pass
 
 
-class IAllEvents(IAsyncReadEvent, IAsyncCancelEvent, IAsyncWriteEvent, IDataChangeEvent): pass
+class IAllEvents(IAsyncReadEvent, IAsyncCancelEvent, IAsyncWriteEvent, IDataChangeEvent, metaclass=ABCMeta): pass

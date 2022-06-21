@@ -1,4 +1,8 @@
-class IServerShutDownEvent:
+from abc import abstractmethod, ABCMeta
+
+
+class IServerShutDownEvent(metaclass=ABCMeta):
+    @abstractmethod
     def OnServerShutDown(self, ServerReason):
         """
         The ServerShutDown event is fired when the server is planning on shutting down and wants to tell

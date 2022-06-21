@@ -1,5 +1,4 @@
 from Interfaces.IOPCBrowser import IOPCBrowser
-from Interfaces.IOPCServer import IOPCServer
 from typing import Tuple
 
 
