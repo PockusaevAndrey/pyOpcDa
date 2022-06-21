@@ -1,4 +1,3 @@
-from Interfaces.IOPCServer import IOPCServer
 from Structs.OPCBase import OPCBase
 
 

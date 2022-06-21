@@ -1,0 +1,9 @@
+site_name: pyOpcDa
+
+nav:
+  - Home: index.md
+  - Events: Events.md
+  - Interfaces: Interfaces.md
+  - Structs: Structs.md
+  - Getting Started: Getting_started.md
+theme: readthedocs
