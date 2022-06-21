@@ -1,4 +1,8 @@
-class IGlobalDataChange:
+from abc import ABCMeta, abstractmethod
+
+
+class IGlobalDataChange(metaclass=ABCMeta):
+    @abstractmethod
     def OnGlobalDataChange(self, TransitionID, GroupHandle, NumItems, ClientHandles, ItemValues, Qualities, Timestamps):
         """
         The GlobalDataChange event is an event to facilitate one event handler being implemented to

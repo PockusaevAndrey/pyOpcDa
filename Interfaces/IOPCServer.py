@@ -1,21 +1,31 @@
+from abc import abstractmethod
+
 from Structs.OPCBase import OPCBaseServer
 
 
 class IOPCServer(OPCBaseServer):
+    @abstractmethod
     def GetOPCServers(self, Node="localhost"): pass
 
+    @abstractmethod
     def Connect(self, ProgID, Node='localhost'): pass
 
+    @abstractmethod
     def Disconnect(self): pass
 
+    @abstractmethod
     def CreateBrowser(self): pass
 
+    @abstractmethod
     def GetErrorString(self, ErrorCode): pass
 
+    @abstractmethod
     def QueryAvailableLocaleIDs(self): pass
 
+    @abstractmethod
     def QueryAvailableProperties(self, ItemID): pass
 
+    @abstractmethod
     def GetItemProperties(self):
         """
                 not realize
@@ -24,6 +34,7 @@ class IOPCServer(OPCBaseServer):
                 """
         pass
 
+    @abstractmethod
     def LookupItemIDs(self):
         """
                 no realize
@@ -35,4 +46,5 @@ class IOPCServer(OPCBaseServer):
                 """
         pass
 
+    @abstractmethod
     def BindCallback(self, CallbackClass): pass

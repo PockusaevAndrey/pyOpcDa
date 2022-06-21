@@ -1,7 +1,9 @@
+from abc import abstractmethod, ABCMeta
+
 from Structs.OPCBase import OPCBase
 
 
-class IOPCBrowser(OPCBase):
+class IOPCBrowser(OPCBase, metaclass=ABCMeta):
 
     @property
     def Organization(self):
@@ -64,29 +66,41 @@ class IOPCBrowser(OPCBase):
         """
         return self._object.Count
 
+    @abstractmethod
     def Item(self, ItemSpecifier):
         pass
 
+    @abstractmethod
     def __call__(self, ItemSpecifier): pass
 
+    @abstractmethod
     def __iter__(self): pass
 
+    @abstractmethod
     def __next__(self): pass
 
+    @abstractmethod
     def ShowBranches(self): pass
 
+    @abstractmethod
     def ShowLeafs(self, Flat=False): pass
 
+    @abstractmethod
     def MoveUp(self): pass
 
+    @abstractmethod
     def MoveToRoot(self): pass
 
+    @abstractmethod
     def MoveDown(self, Branch): pass
 
+    @abstractmethod
     def MoveTo(self, Branches): pass
 
+    @abstractmethod
     def GetItemID(self, Leaf): pass
 
+    @abstractmethod
     def GetAccessPaths(self, ItemID):
         """
         Returns the strings that are legal AccessPaths for this ItemID. May be Null if there are no

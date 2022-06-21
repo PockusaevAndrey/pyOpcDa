@@ -1,7 +1,11 @@
+from typing import Tuple, Union
+
+import pythoncom
 import win32com.client
+from win32.lib import pywintypes
+
 from Events.IGroupEvents import *
 from Interfaces.IOPCGroup import IOPCGroup
-from typing import Tuple, Union
 from Structs.OPCItems import OPCItems
 
 
@@ -133,7 +137,10 @@ class OPCGroup(IOPCGroup):
         :rtype:                     (Tuple[int], Tuple[int], Tuple[int], Tuple[pywintypes.TimeType])
         :return:                    (Values, Errors, Qualities, TimeStamps)                                    cannot provide a timestamp then the server will provide one.
         """
-        return self._object.SyncRead(Source, NumItems, ServerHandles)
+        try:
+            return self._object.SyncRead(Source, NumItems, ServerHandles)
+        except pywintypes.com_error as e:
+            raise RuntimeError(pythoncom.GetScodeString(e.args[2][5]))
 
     def SyncWrite(self, NumItems, ServerHandles, Values):
         """
@@ -148,7 +155,10 @@ class OPCGroup(IOPCGroup):
         :return: Array of Long’s indicating the success of the individual item writes.
         :rtype: Tuple[int]
         """
-        return self._object.SyncWrite(NumItems, ServerHandles, Values)
+        try:
+            return self._object.SyncWrite(NumItems, ServerHandles, Values)
+        except pywintypes.com_error as e:
+            raise RuntimeError(pythoncom.GetScodeString(e.args[2][5]))
 
     def AsyncRead(self, NumItems, ServerHandles, TransactionID):
         """
@@ -164,7 +174,10 @@ class OPCGroup(IOPCGroup):
         :param ServerHandles:   Array of server item handles for the items to be read
         :type ServerHandles:    Tuple[int]
         """
-        self._object.AsyncRead(NumItems, ServerHandles, None, TransactionID)
+        try:
+            self._object.AsyncRead(NumItems, ServerHandles, None, TransactionID)
+        except pywintypes.com_error as e:
+            raise RuntimeError(pythoncom.GetScodeString(e.args[2][5]))
 
     def AsyncWrite(self, NumItems, ServerHandles, Values, TransactionID):
         """
@@ -181,7 +194,10 @@ class OPCGroup(IOPCGroup):
                                 ‘completion’ information provided in the Corresponding Event.
         :type TransactionID:    int
         """
-        self._object.AsyncWrite(NumItems, ServerHandles, Values, None, TransactionID)
+        try:
+            self._object.AsyncWrite(NumItems, ServerHandles, Values, None, TransactionID)
+        except pywintypes.com_error as e:
+            raise RuntimeError(pythoncom.GetScodeString(e.args[2][5]))
 
     def AsyncRefresh(self, Source, TransactionID):
         """
@@ -196,7 +212,10 @@ class OPCGroup(IOPCGroup):
                                 ‘completion’ information provided in the Corresponding Event.
         :type TransactionID:    int
         """
-        self._object.AsyncRefresh(Source, TransactionID)
+        try:
+            self._object.AsyncRefresh(Source, TransactionID)
+        except pywintypes.com_error as e:
+            raise RuntimeError(pythoncom.GetScodeString(e.args[2][5]))
 
     def AsyncCancel(self, CancelID):
         """
@@ -208,7 +227,10 @@ class OPCGroup(IOPCGroup):
                             wants to cancel.
         :type CancelID:     int
         """
-        self._object.AsyncCancel(CancelID)
+        try:
+            self._object.AsyncCancel(CancelID)
+        except pywintypes.com_error as e:
+            raise RuntimeError(pythoncom.GetScodeString(e.args[2][5]))
 
     def BindCallback(self,
                      CallbackClass: Union[IDataChangeEvent, IAsyncCancelEvent, IAsyncReadEvent, IAsyncWriteEvent]):
